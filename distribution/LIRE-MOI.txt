@@ -1,0 +1,63 @@
+CAISSE MAGASIN - VERSION AUTONOME WINDOWS 64 BITS
+
+1. Copier le ZIP sur le PC cible, puis cliquer sur Extraire tout.
+2. Placer le dossier extrait dans un emplacement permanent.
+3. Double-cliquer sur Caisse.Desktop.exe.
+4. Facultatif : lancer Creer un raccourci Bureau.cmd pour ajouter un raccourci.
+
+Aucun IDE, SDK ou installation separee de .NET n'est necessaire.
+Cette version cible Windows x64. Elle n'est pas une application macOS ou Linux.
+Les pilotes du scanner et de l'imprimante restent a installer si necessaire.
+
+Les boutons Reduire, Agrandir/Restaurer et Quitter sont en haut a droite.
+Quitter conserve les ventes enregistrees ; un panier non encaisse demande confirmation.
+
+Chaque PC conserve ses propres donnees dans :
+%LOCALAPPDATA%\CaisseMagasin
+Le transfert du programme seul ne transfere pas le stock ni les ventes.
+Pour reprendre des donnees, utiliser une sauvegarde coherente de la base et son
+settings.json, application fermee. Ne pas partager la base sur un lecteur reseau.
+
+Le programme n'est pas encore signe numeriquement et le ZIP n'est pas un installateur.
+Ne pas deplacer le dossier apres creation du raccourci, ou recreer le raccourci.
+
+SCAN ET RECHERCHE
+Configurer le lecteur USB en mode clavier avec suffixe Entree ou Tabulation.
+F2 : placer le curseur dans le champ de scan.
+F3 : rechercher par nom ou reference si le code est absent ou illisible.
+Chaque scan reconnu ajoute une unite, dans la limite du stock.
+Apres la saisie du montant recu, utiliser F2 pour reprendre les scans.
+Sans code-barres, laisser le champ vide a la creation du produit :
+une reference interne est generee automatiquement.
+
+DONNEES ET TABLEAU DE BORD
+Donnees > Exporter les tableaux Excel : stock restant et tout l'historique
+dans un classeur .xlsx (Excel n'est pas necessaire pour creer le fichier).
+Donnees > Creer une copie de restauration : copie .db pour recuperer la caisse.
+L'export Excel est destine a la lecture et ne remplace pas la copie de restauration.
+Tableau de bord : ventes, retours, sessions et ecarts par nom de caissier.
+Choisir les dates, puis selectionner un caissier pour voir ses sessions.
+Les retours sont attribues au caissier qui les traite.
+
+Paiement : choisir Especes ou Carte bancaire. Valider la carte sur le terminal externe avant d'enregistrer la vente.
+Catalogue : choisir une categorie dans la liste ou saisir une nouvelle categorie.
+Le logo fourni est utilise pour l'application et les raccourcis Windows.
+
+NOUVELLE VERSION : TACTILE, COMPTES ET REMBOURSEMENTS PARTIELS
+Au premier lancement, creer le compte manager et son PIN personnel (6 a 12 chiffres).
+Aucun PIN de production par defaut. Le manager cree ensuite les comptes caissiers.
+Se connecter puis demarrer le shift avec son fond initial dans Gestion.
+Les anciennes sessions sans compte doivent etre cloturees par un manager.
+Toucher les champs pour afficher le pave numerique ou le clavier AZERTY.
+Paiement / Encaisser : montant exact, 20/50/100/200 DH et monnaie automatique.
+Retours : ticket original, produits, quantites, motif et remise en stock.
+Au-dela de 500 DH cumules par ticket (seuil modifiable), PIN manager requis.
+Journal et historique des retours non supprimables par le caissier.
+Les donnees v1/v2 sont sauvegardees avant migration automatique vers v3.
+Ne pas relancer une ancienne version sur la base mise a jour.
+
+ESPACES PAR ROLE
+Caissier : Encaissement, Mes ventes, Mon shift & retours.
+Administrateur : tableau de bord, stock, ventes, donnees, suivi, journal.
+Seul l'administrateur cree les comptes dans Employes & acces (ancien bouton Comptes).
+Utilisez Verrouiller pour changer de compte. Le role Manager existant correspond a Administrateur.

@@ -1,0 +1,35 @@
+<UserControl x:Class="Caisse.Desktop.DashboardPanel" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Caisse.Desktop">
+  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,16,0">
+    <StackPanel Margin="0,20,0,0">
+      <DockPanel Margin="0,0,0,16"><Button DockPanel.Dock="Right" Content="Actualiser" Command="{Binding RefreshCommand}"/><StackPanel><TextBlock Text="Votre magasin en mouvement." FontSize="28" FontWeight="Bold"/><TextBlock Text="{Binding PeriodMessage}" Foreground="#60747D" Margin="0,6,0,0"/></StackPanel></DockPanel>
+      <WrapPanel Margin="0,0,0,16"><TextBlock Text="Du" VerticalAlignment="Center" Margin="0,0,8,0"/><DatePicker SelectedDate="{Binding From}" Width="155" MinHeight="48"/><TextBlock Text="au" VerticalAlignment="Center" Margin="12,0,8,0"/><DatePicker SelectedDate="{Binding To}" Width="155" MinHeight="48"/><Button Content="Aujourd’hui" Command="{Binding TodayCommand}" Margin="16,0,8,0"/><Button Content="Ce mois" Command="{Binding MonthCommand}"/></WrapPanel>
+      <UniformGrid Columns="3" Margin="0,0,0,18">
+        <Border Background="White" CornerRadius="16" Padding="18" Margin="0,0,12,0"><StackPanel><TextBlock Text="VENTES APRÈS REMISES" Foreground="#60747D"/><TextBlock Text="{Binding SalesTotal}" FontSize="28" FontWeight="Bold"/></StackPanel></Border>
+        <Border Background="White" CornerRadius="16" Padding="18" Margin="0,0,12,0"><StackPanel><TextBlock Text="REMBOURSEMENTS" Foreground="#60747D"/><TextBlock Text="{Binding RefundTotal}" FontSize="28" FontWeight="Bold"/></StackPanel></Border>
+        <Border Background="#103D40" CornerRadius="16" Padding="18"><StackPanel><TextBlock Text="SOLDE VENTES − RETOURS" Foreground="#C7EFDF"/><TextBlock Text="{Binding NetTotal}" Foreground="White" FontSize="28" FontWeight="Bold"/></StackPanel></Border>
+      </UniformGrid>
+      <Grid Margin="0,0,0,18"><Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Border Background="White" CornerRadius="16" Padding="20"><StackPanel><TextBlock Text="Évolution des ventes" FontSize="22" FontWeight="SemiBold"/><TextBlock Text="Montants après remises · touchez une barre pour le détail" Foreground="#60747D" FontSize="13" Margin="0,6,0,10"/>
+          <ItemsControl ItemsSource="{Binding SalesChart}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1"/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate>
+            <Button Click="ChartBar_Click" Tag="{Binding Description}" Padding="2" Margin="1" BorderThickness="0" Background="Transparent" MinWidth="0" ToolTip="{Binding Description}">
+              <StackPanel><Grid Height="160"><Border Height="{Binding Height}" Background="#087F70" CornerRadius="5,5,0,0" VerticalAlignment="Bottom" MinHeight="2"/></Grid><TextBlock Text="{Binding Label}" FontSize="11" HorizontalAlignment="Center" Margin="0,8,0,0"/></StackPanel>
+            </Button>
+          </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+        </StackPanel></Border>
+        <Border Grid.Column="2" Background="White" CornerRadius="16" Padding="18"><StackPanel><TextBlock Text="Modes de paiement" FontSize="22" FontWeight="SemiBold"/><local:PaymentRing Cash="{Binding CashSales}" Card="{Binding CardSales}" Height="175"/><TextBlock Text="{Binding CashSalesText}" Foreground="#087F70" FontWeight="SemiBold"/><TextBlock Text="{Binding CardSalesText}" Foreground="#B17716" FontWeight="SemiBold" Margin="0,8,0,0"/></StackPanel></Border>
+      </Grid>
+      <Border Background="White" CornerRadius="16" Padding="20" Margin="0,0,0,18"><StackPanel><TextBlock Text="Ventes par caissier" FontSize="22" FontWeight="SemiBold"/><TextBlock Text="Touchez un caissier pour consulter ses sessions." Foreground="#60747D" Margin="0,6,0,12"/>
+        <ItemsControl ItemsSource="{Binding CashierChart}"><ItemsControl.ItemTemplate><DataTemplate>
+          <Button Command="{Binding DataContext.SelectCashierCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding Cashier}" HorizontalContentAlignment="Stretch" Margin="0,4">
+            <Grid Width="850"><Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="*"/><ColumnDefinition Width="180"/></Grid.ColumnDefinitions><TextBlock Text="{Binding Cashier.Name}" FontSize="18" FontWeight="SemiBold"/><Border Grid.Column="1" Width="{Binding Width}" Height="22" CornerRadius="6" Background="#087F70" HorizontalAlignment="Left"/><TextBlock Grid.Column="2" Text="{Binding Amount}" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Right"/></Grid>
+          </Button>
+        </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+      </StackPanel></Border>
+      <TextBlock Text="{Binding SelectedTitle}" FontSize="22" FontWeight="Bold"/><TextBlock Text="{Binding SelectedAmounts}" Foreground="#60747D" Margin="0,8,0,12"/>
+      <DataGrid ItemsSource="{Binding SelectedSessions}" Height="230"><DataGrid.Columns>
+        <DataGridTextColumn Header="Shift" Binding="{Binding Id}" Width="70"/><DataGridTextColumn Header="Ouverture" Binding="{Binding Opened, StringFormat=dd/MM/yyyy HH:mm}" Width="180"/><DataGridTextColumn Header="Clôture" Binding="{Binding Closed, StringFormat=dd/MM/yyyy HH:mm}" Width="180"/><DataGridTextColumn Header="État" Binding="{Binding State}" Width="*"/><DataGridTextColumn Header="Fond" Binding="{Binding Opening, StringFormat=N2}" Width="110"/><DataGridTextColumn Header="Attendu" Binding="{Binding Expected, StringFormat=N2}" Width="110"/><DataGridTextColumn Header="Compté" Binding="{Binding Counted, StringFormat=N2}" Width="110"/><DataGridTextColumn Header="Écart" Binding="{Binding Difference, StringFormat=N2}" Width="100"/>
+      </DataGrid.Columns></DataGrid>
+      <TextBlock Text="Les retours sont déduits à leur date et attribués au compte qui les traite. Le solde net ne représente pas un bénéfice." TextWrapping="Wrap" Foreground="#60747D" Margin="0,16,0,16"/>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

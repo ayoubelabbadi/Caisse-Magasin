@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\caisse.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../Caisse.Infrastructure/Caisse.Infrastructure.csproj" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets\caisse.ico"/><Resource Include="Assets\logo.png"/></ItemGroup>
+</Project>

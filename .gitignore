@@ -1,0 +1,31 @@
+**/bin/
+**/bin-ticket/
+**/bin-portable/
+dist/
+**/obj/
+.vs/
+.idea/
+.dotnet-home/
+.nuget/
+artifacts/
+publish/
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Local editor settings, shortcuts and test output
+.vscode/
+*.lnk
+*.user
+*.suo
+**/TestResults/
+*.log
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
