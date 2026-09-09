@@ -1,6 +1,6 @@
 # Caisse — Windows Point of Sale
 
-A French-language, offline Windows point-of-sale application built with C#, WPF, .NET 9, and SQLite. Manage checkout, barcode scanning, inventory, receipts, cashier shifts, partial refunds, sales dashboards, and Excel exports, with PIN-based access for administrators and cashiers.
+ Offline Windows point-of-sale application built with C#, WPF, .NET 9, and SQLite. Manage checkout, barcode scanning, inventory, receipts, cashier shifts, partial refunds, sales dashboards, and Excel exports, with PIN-based access for administrators and cashiers.
 
 ## Build and run
 
